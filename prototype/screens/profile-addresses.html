@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ProfileAddresses</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+    <style type="text/tailwindcss">
+      @theme inline {
+        --color-background: var(--background);
+        --color-foreground: var(--foreground);
+        --color-primary: var(--primary);
+        --color-primary-foreground: var(--primary-foreground);
+        --color-secondary: var(--secondary);
+        --color-secondary-foreground: var(--secondary-foreground);
+        --color-muted: var(--muted);
+        --color-muted-foreground: var(--muted-foreground);
+        --color-accent: var(--accent);
+        --color-accent-foreground: var(--accent-foreground);
+        --color-destructive: var(--destructive);
+        --color-destructive-foreground: var(--destructive-foreground);
+        --color-card: var(--card);
+        --color-card-foreground: var(--card-foreground);
+        --color-popover: var(--popover);
+        --color-popover-foreground: var(--popover-foreground);
+        --color-border: var(--border);
+        --color-input: var(--input);
+        --color-ring: var(--ring);
+        --color-chart-1: var(--chart-1);
+        --color-chart-2: var(--chart-2);
+        --color-chart-3: var(--chart-3);
+        --color-chart-4: var(--chart-4);
+        --color-chart-5: var(--chart-5);
+
+        --font-sans: var(--font-sans);
+        --font-heading: var(--font-heading, var(--font-sans));
+        --font-serif: var(--font-serif);
+        --font-mono: var(--font-mono);
+      }
+
+      @theme {
+        --radius-xs: calc(var(--radius) - 8px);
+        --radius-sm: calc(var(--radius) - 4px);
+        --radius-md: calc(var(--radius) - 2px);
+        --radius-lg: var(--radius);
+        --radius-xl: calc(var(--radius) + 4px);
+        --radius-2xl: calc(var(--radius) + 8px);
+        --radius-3xl: calc(var(--radius) + 16px);
+        --radius-4xl: calc(var(--radius) + 24px);
+      }
+
+      * {
+        corner-shape: var(--shape, round);
+      }
+
+      .rounded-full,
+      .rounded-none,
+      .rounded-t-full,
+      .rounded-t-none,
+      .rounded-r-full,
+      .rounded-r-none,
+      .rounded-b-full,
+      .rounded-b-none,
+      .rounded-l-full,
+      .rounded-l-none,
+      .rounded-s-full,
+      .rounded-s-none,
+      .rounded-e-full,
+      .rounded-e-none,
+      .rounded-tl-full,
+      .rounded-tl-none,
+      .rounded-tr-full,
+      .rounded-tr-none,
+      .rounded-bl-full,
+      .rounded-bl-none,
+      .rounded-br-full,
+      .rounded-br-none,
+      .rounded-ss-full,
+      .rounded-ss-none,
+      .rounded-se-full,
+      .rounded-se-none,
+      .rounded-es-full,
+      .rounded-es-none,
+      .rounded-ee-full,
+      .rounded-ee-none {
+        corner-shape: round;
+      }
+
+      @utility rounded-* {
+        border-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-t-* {
+        border-top-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-top-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-r-* {
+        border-top-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-bottom-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-b-* {
+        border-bottom-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-bottom-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-l-* {
+        border-top-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-bottom-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-tl-* {
+        border-top-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-tr-* {
+        border-top-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-bl-* {
+        border-bottom-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-br-* {
+        border-bottom-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-s-* {
+        border-start-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-end-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-e-* {
+        border-start-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-end-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-ss-* {
+        border-start-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-se-* {
+        border-start-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-es-* {
+        border-end-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-ee-* {
+        border-end-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+
+      @layer base {
+        * {
+          @apply border-border outline-ring/50;
+        }
+        body {
+          @apply bg-background text-foreground font-sans;
+        }
+      }
+
+      :root {
+        --shape: squircle;
+        --shape-multiplier: 1;
+
+        --background: #fdfcf8;
+        --foreground: #2d2b26;
+        --primary: #d95a40;
+        --primary-foreground: #fdfcf8;
+        --secondary: #5a6b41;
+        --secondary-foreground: #fdfcf8;
+        --muted: #f4efe6;
+        --muted-foreground: #8f8d84;
+        --accent: #f4efe6;
+        --accent-foreground: #2d2b26;
+        --destructive: #c47055;
+        --destructive-foreground: #fdfcf8;
+        --card: #f4efe6;
+        --card-foreground: #2d2b26;
+        --popover: #fdfcf8;
+        --popover-foreground: #2d2b26;
+        --border: #eae5db;
+        --input: #f4efe6;
+        --ring: #d95a40;
+        --chart-1: #d95a40;
+        --chart-2: #5a6b41;
+        --chart-3: #c9a227;
+        --chart-4: #8f8d84;
+        --chart-5: #c47055;
+
+        --font-sans: "Inter", sans-serif;
+        --font-heading: "Fraunces", sans-serif;
+        --font-serif: "Playfair Display", serif;
+        --font-mono: "JetBrains Mono", monospace;
+
+        --radius: 1rem;
+      }
+
+      @supports (corner-shape: squircle) {
+        :root {
+          --shape-multiplier: 2.5;
+        }
+      }
+
+      /* Hide scrollbars */
+      *,
+      *::before,
+      *::after {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      *::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="relative min-h-[844px] w-full max-w-[390px] mx-auto bg-background pb-32 text-foreground"
+    >
+      <header class="flex items-center gap-4 px-6 pt-12 pb-2">
+        <a
+          href="account.html"
+          class="flex size-11 shrink-0 items-center justify-center rounded-full bg-card text-foreground"
+          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="M165.66 202.34a8 8 0 0 1-11.32 11.32l-80-80a8 8 0 0 1 0-11.32l80-80a8 8 0 0 1 11.32 11.32L91.31 128Z"/></svg></a>
+        <h1 class="font-heading text-2xl font-semibold tracking-tight">Profile &amp; Addresses</h1>
+      </header>
+      <section class="px-6 pt-4">
+        <p class="mb-3 text-sm font-semibold text-muted-foreground">Personal details</p>
+        <div class="space-y-4 rounded-3xl border border-border bg-card p-5 shadow-sm">
+          <div>
+            <label class="mb-2 block text-sm font-semibold">Full name</label
+            ><input
+              type="text"
+              class="h-12 w-full rounded-2xl border border-border bg-input px-4 text-sm"
+              value="Sarah Cohen"
+            />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-semibold">Email</label
+            ><input
+              type="email"
+              class="h-12 w-full rounded-2xl border border-border bg-input px-4 text-sm"
+              value="sarah@email.com"
+            />
+          </div>
+          <div>
+            <label class="mb-2 block text-sm font-semibold">Phone</label
+            ><input
+              type="tel"
+              class="h-12 w-full rounded-2xl border border-border bg-input px-4 text-sm"
+              value="(917) 555-0142"
+            />
+          </div>
+        </div>
+      </section>
+      <section class="px-6 pt-6">
+        <div class="mb-3 flex items-center justify-between">
+          <p class="text-sm font-semibold text-muted-foreground">Saved addresses</p>
+          <a href="address-date.html" class="text-sm font-semibold text-primary">+ Add new</a>
+        </div>
+        <div class="space-y-3">
+          <div class="flex gap-4 rounded-3xl border border-border bg-card p-4 shadow-sm">
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="m219.31 108.68l-80-80a16 16 0 0 0-22.62 0l-80 80A15.87 15.87 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.87 15.87 0 0 0-4.69-11.32M208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80l80 80Z"/></svg></span>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center gap-2">
+                <p class="text-sm font-semibold">Home</p>
+                <span
+                  class="rounded-full bg-secondary/10 px-2 py-0.5 text-[11px] font-semibold text-secondary"
+                  >Default</span
+                >
+              </div>
+              <p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+                1420 Avenue J, Apt 2B, Brooklyn, NY 11230
+              </p>
+            </div>
+            <a href="address-date.html" class="text-sm font-semibold text-primary">Edit</a>
+          </div>
+          <div class="flex gap-4 rounded-3xl border border-border bg-card p-4 shadow-sm">
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="M128 64a40 40 0 1 0 40 40a40 40 0 0 0-40-40m0 64a24 24 0 1 1 24-24a24 24 0 0 1-24 24m0-112a88.1 88.1 0 0 0-88 88c0 31.4 14.51 64.68 42 96.25a254.2 254.2 0 0 0 41.45 38.3a8 8 0 0 0 9.18 0a254.2 254.2 0 0 0 41.37-38.3c27.45-31.57 42-64.85 42-96.25a88.1 88.1 0 0 0-88-88m0 206c-16.53-13-72-60.75-72-118a72 72 0 0 1 144 0c0 57.23-55.47 105-72 118"/></svg></span>
+            <div class="min-w-0 flex-1">
+              <p class="text-sm font-semibold">Monsey</p>
+              <p class="mt-1 text-xs leading-relaxed text-muted-foreground">
+                15 Maple Avenue, Monsey, NY 10952
+              </p>
+            </div>
+            <a href="address-date.html" class="text-sm font-semibold text-primary">Edit</a>
+          </div>
+        </div>
+      </section>
+      <section class="px-6 pt-6">
+        <p class="mb-3 text-sm font-semibold text-muted-foreground">Notifications</p>
+        <div class="divide-y divide-border rounded-3xl border border-border bg-card px-5 shadow-sm">
+          <div class="flex items-center justify-between gap-4 py-4">
+            <div>
+              <p class="text-sm font-semibold">Holiday menus</p>
+              <p class="text-xs text-muted-foreground">
+                Tishrei, Chanukah and Pesach menu launches
+              </p>
+            </div>
+            <span class="relative flex h-6 w-11 shrink-0 items-center rounded-full bg-primary"
+              ><span class="absolute right-0.5 size-5 rounded-full bg-primary-foreground"></span
+            ></span>
+          </div>
+          <div class="flex items-center justify-between gap-4 py-4">
+            <div>
+              <p class="text-sm font-semibold">Order updates</p>
+              <p class="text-xs text-muted-foreground">Packing, shipping and delivery alerts</p>
+            </div>
+            <span class="relative flex h-6 w-11 shrink-0 items-center rounded-full bg-primary"
+              ><span class="absolute right-0.5 size-5 rounded-full bg-primary-foreground"></span
+            ></span>
+          </div>
+        </div>
+      </section>
+      <section class="px-6 pt-8">
+        <a
+          href="account.html"
+          class="flex h-14 items-center justify-center rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-sm"
+          >Save</a
+        >
+      </section>
+      <nav
+        class="fixed bottom-6 left-1/2 z-50 flex w-[350px] -translate-x-1/2 items-center justify-between rounded-3xl border border-border bg-card/95 px-2 py-2 shadow-lg backdrop-blur"
+      >
+        <a href="home.html" class="flex flex-1 flex-col items-center gap-1 py-1 text-muted-foreground"
+          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:24px;height:24px;"><path fill="currentColor" d="m219.31 108.68l-80-80a16 16 0 0 0-22.62 0l-80 80A15.87 15.87 0 0 0 32 120v96a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-56h32v56a8 8 0 0 0 8 8h64a8 8 0 0 0 8-8v-96a15.87 15.87 0 0 0-4.69-11.32M208 208h-48v-56a8 8 0 0 0-8-8h-48a8 8 0 0 0-8 8v56H48v-88l80-80l80 80Z"/></svg><span class="text-[10px] font-medium">Home</span></a
+        ><a href="menu.html" class="flex flex-1 flex-col items-center gap-1 py-1 text-muted-foreground"
+          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:24px;height:24px;"><path fill="currentColor" d="M224 128a8 8 0 0 1-8 8H40a8 8 0 0 1 0-16h176a8 8 0 0 1 8 8M40 72h176a8 8 0 0 0 0-16H40a8 8 0 0 0 0 16m176 112H40a8 8 0 0 0 0 16h176a8 8 0 0 0 0-16"/></svg><span class="text-[10px] font-medium">Menu</span></a
+        ><a
+          href="search.html"
+          class="flex flex-1 flex-col items-center gap-1 py-1 text-muted-foreground"
+          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:24px;height:24px;"><path fill="currentColor" d="m229.66 218.34l-50.07-50.06a88.11 88.11 0 1 0-11.31 11.31l50.06 50.07a8 8 0 0 0 11.32-11.32M40 112a72 72 0 1 1 72 72a72.08 72.08 0 0 1-72-72"/></svg><span class="text-[10px] font-medium">Search</span></a
+        ><a href="cart.html" class="flex flex-1 flex-col items-center gap-1 py-1 text-muted-foreground"
+          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:24px;height:24px;"><path fill="currentColor" d="M216 40H40a16 16 0 0 0-16 16v144a16 16 0 0 0 16 16h176a16 16 0 0 0 16-16V56a16 16 0 0 0-16-16m0 160H40V56h176zM176 88a48 48 0 0 1-96 0a8 8 0 0 1 16 0a32 32 0 0 0 64 0a8 8 0 0 1 16 0"/></svg><span class="text-[10px] font-medium">Cart</span></a
+        ><a href="account.html" class="flex flex-1 flex-col items-center gap-1 py-1 text-primary"
+          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:24px;height:24px;"><path fill="currentColor" d="M230.93 220a8 8 0 0 1-6.93 4H32a8 8 0 0 1-6.92-12c15.23-26.33 38.7-45.21 66.09-54.16a72 72 0 1 1 73.66 0c27.39 8.95 50.86 27.83 66.09 54.16a8 8 0 0 1 .01 8"/></svg><span class="text-[10px] font-semibold">Account</span></a
+        >
+      </nav>
+    </div>
+  </body>
+</html>
