@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.1.11"></script>
+    <style type="text/tailwindcss">
+      @theme inline {
+        --color-background: var(--background);
+        --color-foreground: var(--foreground);
+        --color-primary: var(--primary);
+        --color-primary-foreground: var(--primary-foreground);
+        --color-secondary: var(--secondary);
+        --color-secondary-foreground: var(--secondary-foreground);
+        --color-muted: var(--muted);
+        --color-muted-foreground: var(--muted-foreground);
+        --color-accent: var(--accent);
+        --color-accent-foreground: var(--accent-foreground);
+        --color-destructive: var(--destructive);
+        --color-destructive-foreground: var(--destructive-foreground);
+        --color-card: var(--card);
+        --color-card-foreground: var(--card-foreground);
+        --color-popover: var(--popover);
+        --color-popover-foreground: var(--popover-foreground);
+        --color-border: var(--border);
+        --color-input: var(--input);
+        --color-ring: var(--ring);
+        --color-chart-1: var(--chart-1);
+        --color-chart-2: var(--chart-2);
+        --color-chart-3: var(--chart-3);
+        --color-chart-4: var(--chart-4);
+        --color-chart-5: var(--chart-5);
+
+        --font-sans: var(--font-sans);
+        --font-heading: var(--font-heading, var(--font-sans));
+        --font-serif: var(--font-serif);
+        --font-mono: var(--font-mono);
+      }
+
+      @theme {
+        --radius-xs: calc(var(--radius) - 8px);
+        --radius-sm: calc(var(--radius) - 4px);
+        --radius-md: calc(var(--radius) - 2px);
+        --radius-lg: var(--radius);
+        --radius-xl: calc(var(--radius) + 4px);
+        --radius-2xl: calc(var(--radius) + 8px);
+        --radius-3xl: calc(var(--radius) + 16px);
+        --radius-4xl: calc(var(--radius) + 24px);
+      }
+
+      * {
+        corner-shape: var(--shape, round);
+      }
+
+      .rounded-full,
+      .rounded-none,
+      .rounded-t-full,
+      .rounded-t-none,
+      .rounded-r-full,
+      .rounded-r-none,
+      .rounded-b-full,
+      .rounded-b-none,
+      .rounded-l-full,
+      .rounded-l-none,
+      .rounded-s-full,
+      .rounded-s-none,
+      .rounded-e-full,
+      .rounded-e-none,
+      .rounded-tl-full,
+      .rounded-tl-none,
+      .rounded-tr-full,
+      .rounded-tr-none,
+      .rounded-bl-full,
+      .rounded-bl-none,
+      .rounded-br-full,
+      .rounded-br-none,
+      .rounded-ss-full,
+      .rounded-ss-none,
+      .rounded-se-full,
+      .rounded-se-none,
+      .rounded-es-full,
+      .rounded-es-none,
+      .rounded-ee-full,
+      .rounded-ee-none {
+        corner-shape: round;
+      }
+
+      @utility rounded-* {
+        border-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-t-* {
+        border-top-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-top-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-r-* {
+        border-top-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-bottom-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-b-* {
+        border-bottom-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-bottom-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-l-* {
+        border-top-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-bottom-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-tl-* {
+        border-top-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-tr-* {
+        border-top-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-bl-* {
+        border-bottom-left-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-br-* {
+        border-bottom-right-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-s-* {
+        border-start-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-end-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-e-* {
+        border-start-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+        border-end-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-ss-* {
+        border-start-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-se-* {
+        border-start-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-es-* {
+        border-end-start-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+      @utility rounded-ee-* {
+        border-end-end-radius: calc(
+          --value(--radius-*, [length], [percentage]) * var(--shape-multiplier, 1)
+        );
+      }
+
+      @layer base {
+        * {
+          @apply border-border outline-ring/50;
+        }
+        body {
+          @apply bg-background text-foreground font-sans;
+        }
+      }
+
+      :root {
+        --shape: squircle;
+        --shape-multiplier: 1;
+
+        --background: #fdfcf8;
+        --foreground: #2d2b26;
+        --primary: #d95a40;
+        --primary-foreground: #fdfcf8;
+        --secondary: #5a6b41;
+        --secondary-foreground: #fdfcf8;
+        --muted: #f4efe6;
+        --muted-foreground: #8f8d84;
+        --accent: #f4efe6;
+        --accent-foreground: #2d2b26;
+        --destructive: #c47055;
+        --destructive-foreground: #fdfcf8;
+        --card: #f4efe6;
+        --card-foreground: #2d2b26;
+        --popover: #fdfcf8;
+        --popover-foreground: #2d2b26;
+        --border: #eae5db;
+        --input: #f4efe6;
+        --ring: #d95a40;
+        --chart-1: #d95a40;
+        --chart-2: #5a6b41;
+        --chart-3: #c9a227;
+        --chart-4: #8f8d84;
+        --chart-5: #c47055;
+
+        --font-sans: "Inter", sans-serif;
+        --font-heading: "Fraunces", sans-serif;
+        --font-serif: "Playfair Display", serif;
+        --font-mono: "JetBrains Mono", monospace;
+
+        --radius: 1rem;
+      }
+
+      @supports (corner-shape: squircle) {
+        :root {
+          --shape-multiplier: 2.5;
+        }
+      }
+
+      /* Hide scrollbars */
+      *,
+      *::before,
+      *::after {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+      *::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="relative min-h-[844px] w-full max-w-[390px] mx-auto bg-background pb-32 text-foreground"
+    >
+      <header class="flex items-center justify-between px-6 pt-12 pb-2">
+        <a
+          href="address-date.html"
+          class="flex size-11 items-center justify-center rounded-full bg-card text-foreground"
+          ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="M165.66 202.34a8 8 0 0 1-11.32 11.32l-80-80a8 8 0 0 1 0-11.32l80-80a8 8 0 0 1 11.32 11.32L91.31 128Z"/></svg></a>
+        <p class="font-heading text-lg font-semibold">Checkout</p>
+        <span class="size-11"></span>
+      </header>
+      <section class="pt-4">
+        <div class="flex items-start px-6">
+          <a href="delivery-method.html" class="flex w-14 shrink-0 flex-col items-center gap-1.5"
+            ><span
+              class="flex size-8 items-center justify-center rounded-full border border-border bg-card text-xs font-semibold text-muted-foreground"
+              >1</span
+            ><span class="text-[11px] font-medium text-muted-foreground">Delivery</span></a
+          ><span class="mt-4 h-px flex-1 bg-border"></span
+          ><a href="address-date.html" class="flex w-14 shrink-0 flex-col items-center gap-1.5"
+            ><span
+              class="flex size-8 items-center justify-center rounded-full border border-border bg-card text-xs font-semibold text-muted-foreground"
+              >2</span
+            ><span class="text-[11px] font-medium text-muted-foreground">Address</span></a
+          ><span class="mt-4 h-px flex-1 bg-border"></span
+          ><a href="payment.html" class="flex w-14 shrink-0 flex-col items-center gap-1.5"
+            ><span
+              class="flex size-8 items-center justify-center rounded-full bg-primary text-xs font-semibold text-primary-foreground"
+              >3</span
+            ><span class="text-[11px] font-semibold">Payment</span></a
+          ><span class="mt-4 h-px flex-1 bg-border"></span
+          ><a href="review-order.html" class="flex w-14 shrink-0 flex-col items-center gap-1.5"
+            ><span
+              class="flex size-8 items-center justify-center rounded-full border border-border bg-card text-xs font-semibold text-muted-foreground"
+              >4</span
+            ><span class="text-[11px] font-medium text-muted-foreground">Review</span></a
+          >
+        </div>
+      </section>
+      <section class="px-6 pt-6">
+        <h1 class="font-heading text-2xl font-semibold tracking-tight">Payment</h1>
+        <p class="mt-1 text-sm text-muted-foreground">
+          Choose how you'd like to pay. Your order is secure.
+        </p>
+      </section>
+      <section class="px-6 pt-6 space-y-4">
+        <div class="rounded-3xl border-2 border-primary bg-card p-5 shadow-sm">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex gap-3">
+              <span
+                class="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
+                ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="M224 48H32a16 16 0 0 0-16 16v128a16 16 0 0 0 16 16h192a16 16 0 0 0 16-16V64a16 16 0 0 0-16-16m0 16v24H32V64Zm0 128H32v-88h192zm-16-24a8 8 0 0 1-8 8h-32a8 8 0 0 1 0-16h32a8 8 0 0 1 8 8m-64 0a8 8 0 0 1-8 8h-16a8 8 0 0 1 0-16h16a8 8 0 0 1 8 8"/></svg></span>
+              <div>
+                <p class="font-heading text-lg font-semibold leading-snug">Credit Card</p>
+                <p class="mt-0.5 text-sm text-muted-foreground">3.5% processing fee</p>
+              </div>
+            </div>
+            <span
+              class="flex size-6 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:14px;height:14px;"><path fill="currentColor" d="m229.66 77.66l-128 128a8 8 0 0 1-11.32 0l-56-56a8 8 0 0 1 11.32-11.32L96 188.69L218.34 66.34a8 8 0 0 1 11.32 11.32"/></svg></span>
+          </div>
+          <div class="mt-4 space-y-3">
+            <div>
+              <label class="mb-2 block text-sm font-semibold">Card number</label
+              ><input
+                type="text"
+                class="h-12 w-full rounded-2xl border border-border bg-input px-4 text-sm placeholder:text-muted-foreground"
+                placeholder="1234 5678 9012 3456"
+              />
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="mb-2 block text-sm font-semibold">Expiry</label
+                ><input
+                  type="text"
+                  class="h-12 w-full rounded-2xl border border-border bg-input px-4 text-sm placeholder:text-muted-foreground"
+                  placeholder="MM / YY"
+                />
+              </div>
+              <div>
+                <label class="mb-2 block text-sm font-semibold">CVC</label
+                ><input
+                  type="text"
+                  class="h-12 w-full rounded-2xl border border-border bg-input px-4 text-sm placeholder:text-muted-foreground"
+                  placeholder="123"
+                />
+              </div>
+            </div>
+            <div>
+              <label class="mb-2 block text-sm font-semibold">Name on card</label
+              ><input
+                type="text"
+                class="h-12 w-full rounded-2xl border border-border bg-input px-4 text-sm placeholder:text-muted-foreground"
+                placeholder="As it appears on your card"
+              />
+            </div>
+          </div>
+        </div>
+        <a
+          href="payment.html"
+          class="flex items-center justify-between gap-3 rounded-3xl border border-border bg-card p-5 shadow-sm"
+          ><div class="flex gap-3">
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="M24 104h24v64H32a8 8 0 0 0 0 16h192a8 8 0 0 0 0-16h-16v-64h24a8 8 0 0 0 4.19-14.81l-104-64a8 8 0 0 0-8.38 0l-104 64A8 8 0 0 0 24 104m40 0h32v64H64Zm80 0v64h-32v-64Zm48 64h-32v-64h32ZM128 41.39L203.74 88H52.26ZM248 208a8 8 0 0 1-8 8H16a8 8 0 0 1 0-16h224a8 8 0 0 1 8 8"/></svg></span>
+            <div>
+              <p class="font-heading text-lg font-semibold leading-snug">Zelle / QuickPay</p>
+              <p class="mt-0.5 text-sm text-muted-foreground">Batyaskitchen@gmail.com</p>
+            </div>
+          </div>
+          <span class="size-6 shrink-0 rounded-full border-2 border-border"></span></a
+        ><a
+          href="payment.html"
+          class="flex items-center justify-between gap-3 rounded-3xl border border-border bg-card p-5 shadow-sm"
+          ><div class="flex gap-3">
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="M216 64H56a8 8 0 0 1 0-16h136a8 8 0 0 0 0-16H56a24 24 0 0 0-24 24v128a24 24 0 0 0 24 24h160a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16m0 128H56a8 8 0 0 1-8-8V78.63A23.8 23.8 0 0 0 56 80h160Zm-48-60a12 12 0 1 1 12 12a12 12 0 0 1-12-12"/></svg></span>
+            <div>
+              <p class="font-heading text-lg font-semibold leading-snug">Venmo</p>
+              <p class="mt-0.5 text-sm text-muted-foreground">@batya-kahan</p>
+            </div>
+          </div>
+          <span class="size-6 shrink-0 rounded-full border-2 border-border"></span></a
+        ><a
+          href="payment.html"
+          class="flex items-center justify-between gap-3 rounded-3xl border border-border bg-card p-5 shadow-sm"
+          ><div class="flex gap-3">
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary"
+              ><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true" style="display:inline-block;flex-shrink:0;vertical-align:middle;width:20px;height:20px;"><path fill="currentColor" d="M128 88a40 40 0 1 0 40 40a40 40 0 0 0-40-40m0 64a24 24 0 1 1 24-24a24 24 0 0 1-24 24m112-96H16a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h224a8 8 0 0 0 8-8V64a8 8 0 0 0-8-8m-46.35 128H62.35A56.78 56.78 0 0 0 24 145.65v-35.3A56.78 56.78 0 0 0 62.35 72h131.3A56.78 56.78 0 0 0 232 110.35v35.3A56.78 56.78 0 0 0 193.65 184M232 93.37A40.8 40.8 0 0 1 210.63 72H232ZM45.37 72A40.8 40.8 0 0 1 24 93.37V72ZM24 162.63A40.8 40.8 0 0 1 45.37 184H24ZM210.63 184A40.8 40.8 0 0 1 232 162.63V184Z"/></svg></span>
+            <div>
+              <p class="font-heading text-lg font-semibold leading-snug">Check</p>
+              <p class="mt-0.5 text-sm text-muted-foreground">
+                Payable to Batya's Kitchen, 1278 East 34th Street, Brooklyn, NY
+              </p>
+            </div>
+          </div>
+          <span class="size-6 shrink-0 rounded-full border-2 border-border"></span
+        ></a>
+      </section>
+      <section class="px-6 pt-6">
+        <h2 class="font-heading text-xl font-semibold">Gift card or promo code</h2>
+        <div class="mt-4 flex gap-2">
+          <input
+            type="text"
+            class="h-12 flex-1 rounded-2xl border border-border bg-input px-4 text-sm placeholder:text-muted-foreground"
+            placeholder="Enter code"
+          /><a
+            href="payment.html"
+            class="flex h-12 items-center justify-center rounded-2xl bg-secondary px-5 text-sm font-semibold text-secondary-foreground"
+            >Apply</a
+          >
+        </div>
+      </section>
+      <nav
+        class="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-[390px] bg-background px-6 pb-8 pt-4"
+      >
+        <a
+          href="review-order.html"
+          class="flex h-14 items-center justify-center rounded-2xl bg-primary text-base font-semibold text-primary-foreground shadow-sm"
+          >Continue</a
+        >
+      </nav>
+    </div>
+  </body>
+</html>

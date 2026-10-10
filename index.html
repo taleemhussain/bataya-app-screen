@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="assets/img/batya-logo.png">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}</style>
+<title>Batya's Kitchen App Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap">
+<style>
+  /* Layout: screen index on the left, a true-size phone on a cream stage; on phones the prototype fills the screen. */
+  :root {
+    --bg: #F4EFE6;          /* biscuit stage */
+    --panel: #FDFCF8;       /* cream */
+    --fg: #2D2B26;          /* warm charcoal */
+    --muted: #8F8D84;       /* taupe */
+    --line: #EAE5DB;        /* hairline */
+    --accent: #D95A40;      /* terracotta */
+    --accent-soft: #F6E1D9;
+    --sage: #5A6B41;
+    --bezel: #2D2B26;
+    --display: "Fraunces", Georgia, "Times New Roman", serif;
+    --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1E1C19; --panel: #282521; --fg: #F1ECE2; --muted: #A8A296; --line: #3A362F;
+      --accent: #E8735A; --accent-soft: #43281F; --sage: #A3B585; --bezel: #0F0E0C; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1E1C19; --panel: #282521; --fg: #F1ECE2; --muted: #A8A296; --line: #3A362F;
+    --accent: #E8735A; --accent-soft: #43281F; --sage: #A3B585; --bezel: #0F0E0C; color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 14px; }
+  .app { height: 100%; display: grid; grid-template-rows: auto 1fr; }
+
+  header {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+    padding: 12px 20px; background: var(--panel); border-bottom: 1px solid var(--line);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .brand img { width: 40px; height: 40px; border-radius: 50%; background: #fff; }
+  .brand h1 { font-family: var(--display); font-weight: 600; font-size: 19px; margin: 0; text-wrap: balance; }
+  .brand p { margin: 2px 0 0; color: var(--muted); font-size: 12.5px; }
+  .controls { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  button, select {
+    font: 500 13px var(--body); color: var(--fg); background: var(--bg);
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+  }
+  button:hover { border-color: var(--muted); }
+  button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  button:focus-visible, select:focus-visible, .list a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .where { font-size: 13px; color: var(--muted); }
+  .where b { color: var(--fg); font-weight: 600; }
+
+  main { display: grid; grid-template-columns: 260px 1fr; min-height: 0; }
+  nav.list { overflow-y: auto; padding: 16px 12px 24px; border-right: 1px solid var(--line); background: var(--panel); }
+  .list h2 {
+    font: 600 11px var(--body); letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+    margin: 18px 10px 6px;
+  }
+  .list h2:first-child { margin-top: 4px; }
+  .list a {
+    display: flex; justify-content: space-between; align-items: center; gap: 8px;
+    padding: 7px 10px; border-radius: 10px; color: var(--fg); text-decoration: none; font-size: 13.5px;
+  }
+  .list a:hover { background: var(--bg); }
+  .list a[aria-current="page"] { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
+  .list a span { color: var(--muted); font-size: 11.5px; font-variant-numeric: tabular-nums; }
+
+  .stage { position: relative; display: grid; place-items: center; overflow: hidden; padding-block: 16px 44px; }
+  .phone-box { position: relative; }
+  .phone {
+    position: absolute; top: 0; left: 0; width: 426px; height: 898px; transform-origin: top left; box-sizing: border-box;
+    background: var(--bezel); border-radius: 56px; padding: 12px;
+    box-shadow: 0 0 0 1px var(--line), 0 30px 60px -20px rgba(45, 43, 38, .35);
+  }
+  .phone iframe { width: 402px; height: 874px; border: 0; border-radius: 44px; background: #FDFCF8; display: block; box-sizing: border-box; }
+  .hint { position: absolute; bottom: 10px; left: 0; right: 0; text-align: center; color: var(--muted); font-size: 12px; }
+  .mobile-pick { display: none; }
+
+  @media (max-width: 760px) {
+    header { padding: 10px 16px; gap: 10px; }
+    .brand p, .where, .hint, nav.list { display: none; }
+    .controls { margin-left: 0; width: 100%; }
+    .mobile-pick { display: block; flex: 1; min-width: 0; }
+    .mobile-pick select { width: 100%; }
+    main { grid-template-columns: 1fr; }
+    .stage { padding: 0; display: block; }
+    .phone-box { width: 100% !important; height: 100% !important; }
+    .phone { position: static; width: 100%; height: 100%; transform: none !important; padding: 0; border-radius: 0; box-shadow: none; background: none; }
+    .phone iframe { width: 100%; height: 100%; border-radius: 0; }
+  }
+  @media (prefers-reduced-motion: no-preference) { .list a { transition: background .15s; } }
+</style>
+</head>
+<body>
+
+
+<div class="app">
+  <header>
+    <div class="brand">
+      <img src="assets/img/batya-logo.png" alt="Batya's Kitchen logo">
+      <div>
+        <h1>Batya's Kitchen App</h1>
+        <p>Clickable prototype · 32 screens · tap buttons inside the phone to navigate</p>
+      </div>
+    </div>
+    <div class="controls">
+      <span class="where">Now showing <b id="current">Splash</b></span>
+      <div class="mobile-pick"><select id="pick" aria-label="Jump to screen"></select></div>
+      <button id="back" type="button" title="Go back one screen">Back</button>
+      <button id="prev" type="button" title="Previous screen in the list">Prev</button>
+      <button id="next" type="button" title="Next screen in the list">Next</button>
+      <button id="restart" type="button" class="primary">Restart</button>
+    </div>
+  </header>
+  <main>
+    <nav class="list" id="list" aria-label="All screens"></nav>
+    <section class="stage" id="stage">
+      <div class="phone-box" id="box">
+        <div class="phone" id="phone">
+          <iframe id="screen" title="App screen" src="screens/splash.html"></iframe>
+        </div>
+      </div>
+      <p class="hint">Every button, card and tab inside the phone opens its screen</p>
+    </section>
+  </main>
+</div>
+
+<script>
+  const NAV = [{"group": "Start", "screens": [{"name": "Splash", "slug": "splash"}, {"name": "Onboarding 1", "slug": "onboarding-1"}, {"name": "Onboarding 2", "slug": "onboarding-2"}, {"name": "Onboarding 3", "slug": "onboarding-3"}, {"name": "Sign In", "slug": "sign-in"}, {"name": "Create Account", "slug": "create-account"}]}, {"group": "Shopping", "screens": [{"name": "Home", "slug": "home"}, {"name": "Menu", "slug": "menu"}, {"name": "Category Products", "slug": "category-products"}, {"name": "Filters", "slug": "filters"}, {"name": "Product Detail", "slug": "product-detail"}, {"name": "Search", "slug": "search"}, {"name": "Gift Cards", "slug": "gift-cards"}, {"name": "Seasonal Specials", "slug": "seasonal-specials"}]}, {"group": "Checkout", "screens": [{"name": "Cart", "slug": "cart"}, {"name": "Delivery Method", "slug": "delivery-method"}, {"name": "Address & Date", "slug": "address-date"}, {"name": "Payment", "slug": "payment"}, {"name": "Review Order", "slug": "review-order"}, {"name": "Order Confirmed", "slug": "order-confirmed"}]}, {"group": "Account", "screens": [{"name": "Account", "slug": "account"}, {"name": "My Orders", "slug": "my-orders"}, {"name": "Order Detail", "slug": "order-detail"}, {"name": "Profile & Addresses", "slug": "profile-addresses"}]}, {"group": "About & help", "screens": [{"name": "Our Story", "slug": "our-story"}, {"name": "Kashrus", "slug": "kashrus"}, {"name": "Testimonials", "slug": "testimonials"}, {"name": "Gallery", "slug": "gallery"}, {"name": "FAQs", "slug": "faqs"}, {"name": "Contact Us", "slug": "contact-us"}, {"name": "Partner in Chesed", "slug": "partner-in-chesed"}, {"name": "Privacy & Terms", "slug": "privacy-terms"}]}];
+  const flat = NAV.flatMap(g => g.screens);
+  const bySlug = Object.fromEntries(flat.map((s, i) => [s.slug, { ...s, i }]));
+  const frame = document.getElementById('screen');
+  const list = document.getElementById('list');
+  const pick = document.getElementById('pick');
+  const current = document.getElementById('current');
+  let currentSlug = 'splash';
+
+  NAV.forEach(g => {
+    const h = document.createElement('h2'); h.textContent = g.group; list.appendChild(h);
+    const og = document.createElement('optgroup'); og.label = g.group; pick.appendChild(og);
+    g.screens.forEach(s => {
+      const a = document.createElement('a');
+      a.href = '#' + s.slug; a.dataset.slug = s.slug;
+      a.innerHTML = '<b></b><span></span>';
+      a.firstChild.textContent = s.name; a.lastChild.textContent = String(bySlug[s.slug].i + 1);
+      a.style.fontWeight = 'inherit'; a.firstChild.style.fontWeight = 'inherit';
+      a.addEventListener('click', e => { e.preventDefault(); go(s.slug); });
+      list.appendChild(a);
+      const o = document.createElement('option'); o.value = s.slug; o.textContent = s.name; og.appendChild(o);
+    });
+  });
+
+  function go(s) { if (bySlug[s]) frame.src = 'screens/' + s + '.html'; }
+  function mark(s) {
+    if (!bySlug[s]) return;
+    currentSlug = s;
+    current.textContent = bySlug[s].name;
+    pick.value = s;
+    list.querySelectorAll('a').forEach(a => a.dataset.slug === s ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+    try { history.replaceState(null, '', '#' + s); } catch (e) {}
+  }
+  frame.addEventListener('load', () => {
+    let s = currentSlug;
+    try { s = frame.contentWindow.location.pathname.split('/').pop().replace('.html', ''); } catch (e) {}
+    mark(s);
+  });
+  pick.addEventListener('change', () => go(pick.value));
+  document.getElementById('restart').onclick = () => go('splash');
+  document.getElementById('prev').onclick = () => go(flat[Math.max(0, bySlug[currentSlug].i - 1)].slug);
+  document.getElementById('next').onclick = () => go(flat[Math.min(flat.length - 1, bySlug[currentSlug].i + 1)].slug);
+  document.getElementById('back').onclick = () => { try { frame.contentWindow.history.back(); } catch (e) {} };
+
+  const start = (location.hash || '').slice(1);
+  if (bySlug[start] && start !== 'splash') go(start);
+  mark(bySlug[start] ? start : 'splash');
+
+  const stage = document.getElementById('stage'), box = document.getElementById('box'), phone = document.getElementById('phone');
+  function fit() {
+    if (matchMedia('(max-width: 760px)').matches) return;
+    const r = stage.getBoundingClientRect();
+    const k = Math.min(1, (r.height - 100) / 898, (r.width - 40) / 426);
+    phone.style.transform = 'scale(' + k + ')';
+    box.style.width = 426 * k + 'px'; box.style.height = 898 * k + 'px';
+  }
+  addEventListener('resize', fit); fit();
+</script>
+
+</body>
+</html>
