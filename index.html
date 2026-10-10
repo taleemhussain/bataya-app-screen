@@ -128,7 +128,7 @@
   <section class="stage" id="stage">
     <div class="phone-box" id="box">
       <div class="phone" id="phone">
-        <iframe id="screen" title="App screen" src="screens/splash.html"></iframe>
+        <iframe id="screen" title="App screen" src="screens/splash.html?v=20261010184859"></iframe>
       </div>
     </div>
   </section>
@@ -159,7 +159,7 @@
     });
   });
 
-  function go(s) { if (bySlug[s]) frame.src = 'screens/' + s + '.html'; }
+  function go(s) { if (bySlug[s]) frame.src = 'screens/' + s + '.html?v=20261010184859'; }
   function step(d) { go(flat[Math.min(flat.length - 1, Math.max(0, bySlug[currentSlug].i + d))].slug); }
   function mark(s) {
     if (!bySlug[s]) return;
